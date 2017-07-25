@@ -71,46 +71,36 @@ database.ref().on("child_added", function(childSnapshot) {
   var trainFirst = childSnapshot.val().first;
   var trainFreq = childSnapshot.val().freq;
   
-  // Employee Info
-  //console.log(trainName);
-  //console.log(trainDest);
-  //console.log(trainFirst);
-  //console.log(trainFreq);
-  //console.log("----------------------------");
+  //display first train time in hh:mm a
+  var arrTime = moment.unix(trainFirst).format("hh:mm a");
+
+  //start time in minutes and hours seperated
+  var newStart = moment.unix(trainFirst).format("HH:mm");
+  var currentTime = moment().format("X");
+  
+   //math happens
+
+   var diff = moment().diff(moment(trainFirst, "X"), "minutes");
+
+  var modFreq = diff % trainFreq;
+  var nextArrival = trainFreq - modFreq;
+
+  var nextTrain = moment().add(nextArrival, "m");
+  var next = moment(nextTrain).format("hh:mm a");
+
+  // Add each train's data into the table
+  $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + arrTime + "</td><td>" + trainFreq +  "</td><td>" + next +  "</td><td>" + nextArrival +  "</td></tr>");
+});
+
+
+
+  
  
 
-  // math portion
-  //train set time to hours and minutes
-  var trainHour = moment.unix(trainFirst).format("HH");
-  var trainMinute = moment.unix(trainFirst).format("mm");
-  //current time
-  var nowTime = new Date();
 
-  //get the current time and set time hours
-  var newHours = nowTime.getHours();
-  var newMinute = nowtime.getMinutes();
-
-
-
-
-
-  console.log(newHours);
-  console.log(newMinute);
-  console.log("----------------");
-  console.log(trainHour);
-  console.log(trainMinute);
-
-  // Calculate the months worked using hardcore math
-  // To calculate the months worked
-
-
-  // Calculate the time remaining to arrival
-   //var timeRemaining
 
 
   
 
-  // Add each train's data into the table
-  $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFreq + "</td></tr>");
-});
+  
 
