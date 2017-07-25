@@ -12,6 +12,8 @@
 
 var database = firebase.database();
 
+
+
 // Button for adding trains
 $("#add-train-btn").on("click", function(event) {
   event.preventDefault();
@@ -39,6 +41,7 @@ $("#add-train-btn").on("click", function(event) {
   console.log(newTrain.first);
   console.log(newTrain.freq);
   console.log("----------------------------");
+  
 
   // Alert
   alert("Train successfully added");
@@ -51,6 +54,12 @@ $("#add-train-btn").on("click", function(event) {
 
 });
 
+//function to solve math portion for time remaining
+/*function timeRemain(first){
+  var firstTime = database.ref().newTrain.first;
+  var secondTime = 
+}*/
+
 // 3. Create Firebase event for adding trains to the database and a row in the html when a user adds an entry
 database.ref().on("child_added", function(childSnapshot) {
 
@@ -61,23 +70,39 @@ database.ref().on("child_added", function(childSnapshot) {
   var trainDest = childSnapshot.val().dest;
   var trainFirst = childSnapshot.val().first;
   var trainFreq = childSnapshot.val().freq;
-
+  
   // Employee Info
-  console.log(trainName);
-  console.log(trainDest);
-  console.log(trainFirst);
-  console.log(trainFreq);
-  console.log("----------------------------");
-  console.log(1+20);
+  //console.log(trainName);
+  //console.log(trainDest);
+  //console.log(trainFirst);
+  //console.log(trainFreq);
+  //console.log("----------------------------");
+ 
 
-  // Prettify the employee start
-  var trainTimeset = moment.unix(trainFirst).format("HH:mm");
-  console.log(trainTimeset);
+  // math portion
+  //train set time to hours and minutes
+  var trainHour = moment.unix(trainFirst).format("HH");
+  var trainMinute = moment.unix(trainFirst).format("mm");
+  //current time
+  var nowTime = new Date();
+
+  //get the current time and set time hours
+  var newHours = nowTime.getHours();
+  var newMinute = nowtime.getMinutes();
+
+
+
+
+
+  console.log(newHours);
+  console.log(newMinute);
+  console.log("----------------");
+  console.log(trainHour);
+  console.log(trainMinute);
 
   // Calculate the months worked using hardcore math
   // To calculate the months worked
- // var trainMinutes = moment().diff(moment.unix(trainFirst, "X"), "minutes");
-  //console.log(trainMinutes);
+
 
   // Calculate the time remaining to arrival
    //var timeRemaining
@@ -86,7 +111,6 @@ database.ref().on("child_added", function(childSnapshot) {
   
 
   // Add each train's data into the table
-  //$("#employee-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" +
-  //trainFreq + "</td><td>" + arrTrain + "</td><td>" + minTilTrain + "</td></tr>");
+  $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFreq + "</td></tr>");
 });
 
