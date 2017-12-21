@@ -54,12 +54,6 @@ $("#add-train-btn").on("click", function(event) {
 
 });
 
-//function to solve math portion for time remaining
-/*function timeRemain(first){
-  var firstTime = database.ref().newTrain.first;
-  var secondTime = 
-}*/
-
 // 3. Create Firebase event for adding trains to the database and a row in the html when a user adds an entry
 database.ref().on("child_added", function(childSnapshot) {
 
